@@ -2,6 +2,7 @@ package com.example.appdevteamproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -22,6 +23,8 @@ public class AdminActivity extends AppCompatActivity {
         price = findViewById(R.id.editTextTextPersonName2);
         category = findViewById(R.id.editTextTextPersonName3);
         add = findViewById(R.id.button);
+        delete =  findViewById(R.id.button2);
+        update =  findViewById(R.id.button3);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,15 +34,33 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
 
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseHelper db = new DatabaseHelper(AdminActivity.this);
+                db.deleteData(name.getText().toString().trim());
+            }
+        });
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseHelper db = new DatabaseHelper(AdminActivity.this);
+                db.updateData(name.getText().toString().trim(), Integer.valueOf(price.getText().toString().trim()), category.getText().toString().trim());
+            }
+        });
+
+        viewOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent  = new Intent(getApplicationContext(), AdminActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
-
-
-
-
-
-    // View orders and CRUD operations(Create, Add items, delete items, update items)
 
 
 

@@ -58,4 +58,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return true;
     }
+
+    public void deleteData(String username){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.delete(DBNAME, username + " = ? ", new String[]
+               {username});
+
+        sqLiteDatabase.close();
+
+    }
+
+    public void updateData(String name, int price, String category){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("menuItemName", name);
+        values.put("menuItemPrice", price);
+        values.put("menuItemCategory", category);
+
+        sqLiteDatabase.update(DBNAME, values, "name=?", new String[] {name} );
+
+
+    }
 }
